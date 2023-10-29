@@ -1,11 +1,20 @@
-import React, {useReducer} from "react";
+import React, { useReducer } from "react";
 
-const initialState: State = {
+interface IState{
+  isRequestInProgress: boolean,
+  requestStep: "start" | "pending" | "finished" | "idle"
+}
+
+interface IAction{
+  type: 'START_REQUEST' | 'PENDING_REQUEST' | 'FINISH_REQUEST' | 'RESET_REQUEST'
+}
+
+const initialState: IState = {
   isRequestInProgress: false,
   requestStep: 'idle',
 };
 
-function requestReducer(state: State, action: Action): State {
+function requestReducer(state: IState, action: IAction): IState {
   switch (action.type) {
     case 'START_REQUEST':
       return { ...state, isRequestInProgress: true, requestStep: 'start' };
